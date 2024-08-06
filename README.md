@@ -1,0 +1,72 @@
+# Go tmux
+
+A simple library for interacting with [tmux](https://github.com/tmux/tmux) using Go.
+
+Currently, the library supports only a few basic functionalities and is not stable yet. Additional features will be added as needed.
+
+## Getting Started
+
+To install the library, use the following command:
+```sh
+go get github.com/gabefiori/gotmux
+```
+
+Here’s an example of how to use the library:
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/gabefiori/gotmux"
+)
+
+func main() {
+	// Create a new tmux session
+	session, output, err := gotmux.NewSession(&gotmux.SessionConfig{
+		Name:       "session-name",
+		WindowName: "window-name", // Optional name for the window
+		Dir:        "/tmp",        // Optional working directory for the session
+	})
+
+	if err != nil {
+		// You can identify the error type based on the command output
+		errorType := gotmux.IdentifyError(output)
+		fmt.Println("Error type:", errorType)
+
+		log.Fatal(err)
+	}
+
+	// Most commands return both output and an error
+	output, err = session.AddWindow("new-window")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(output)
+
+	// Switch or attach to the created session.
+	// Warning: If the session is attached, code execution will stop
+	session.AttachOrSwitch()
+
+	// Kill another tmux session if it exists
+	if gotmux.HasSession("other") {
+		gotmux.KillSession("other")
+	}
+
+	// List all sessions with a custom format and print them
+	allSessions, err := gotmux.ListSessions("#S")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, s := range allSessions.Iter() {
+		fmt.Println(s)
+	}
+}
+```
+
+Be sure to check the code for the complete documentation and more examples.
