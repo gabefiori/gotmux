@@ -17,4 +17,3 @@ func (tl *TmuxList) Iter() []string {
 
 	return strings.Split(tl.Output, "\n")
 }
-

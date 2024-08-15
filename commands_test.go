@@ -1,8 +1,8 @@
 package gotmux
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func createSession(name string) error {

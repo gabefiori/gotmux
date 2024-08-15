@@ -6,15 +6,15 @@ import "strings"
 type TmuxError int
 
 const (
-	Unknown TmuxError = iota // An unknown error occurred
-	SessionNotCreated       // The session could not be created
-	NestedSession           // Sessions should be nested with care
-	DuplicateSession        // The session name is duplicated
-	SessionNotFound         // The session was not found
-	CommandFailed           // The command failed to execute
-	InvalidArgument         // An invalid argument was provided
-	PermissionDenied        // Permission was denied
-	Timeout                 // The command timed out
+	Unknown           TmuxError = iota // An unknown error occurred
+	SessionNotCreated                  // The session could not be created
+	NestedSession                      // Sessions should be nested with care
+	DuplicateSession                   // The session name is duplicated
+	SessionNotFound                    // The session was not found
+	CommandFailed                      // The command failed to execute
+	InvalidArgument                    // An invalid argument was provided
+	PermissionDenied                   // Permission was denied
+	Timeout                            // The command timed out
 )
 
 // IdentifyError classifies the error based on the command output.
@@ -49,4 +49,3 @@ func IdentifyError(output string) TmuxError {
 
 	return Unknown
 }
-
