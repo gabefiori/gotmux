@@ -2,6 +2,8 @@ package gotmux
 
 import (
 	"errors"
+
+	"github.com/mitchellh/go-homedir"
 )
 
 // Session represents a tmux session.
@@ -27,7 +29,13 @@ func NewSession(config *SessionConfig) (*Session, error) {
 	args := []string{"new-session", "-d", "-s", config.Name}
 
 	if config.Dir != "" {
-		args = append(args, "-c", config.Dir)
+		expanded, err := homedir.Expand(config.Dir)
+
+		if err != nil {
+			return nil, err
+		}
+
+		args = append(args, "-c", expanded)
 	}
 
 	if config.WindowName != "" {
