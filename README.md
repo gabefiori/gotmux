@@ -8,7 +8,7 @@ Currently, the library supports only a few basic functionalities and is not stab
 
 To install the library, use the following command:
 ```sh
-go get github.com/gabefiori/gotmux
+go get -u github.com/gabefiori/gotmux
 ```
 
 Here’s an example of how to use the library:
