@@ -57,7 +57,7 @@ func (t *TmuxCmd) ExecWithOutput() (string, error) {
 // ExecSyscall replaces the current process with a new tmux process.
 // It uses the syscall.Exec function to execute tmux with the given arguments.
 // This function does not return unless there's an error in starting the new process.
-func (t *TmuxCmd) ExecSyscall(arg ...string) error {
-	args := append([]string{t.path}, arg...)
+func (t *TmuxCmd) ExecSyscall() error {
+	args := append([]string{t.path}, t.args...)
 	return syscall.Exec(t.path, args, os.Environ())
 }
